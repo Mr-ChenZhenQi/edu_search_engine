@@ -1,10 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/result.css' %}" rel="stylesheet">
 </head>
 <body>
-结果
+<div id="container">
+    <div id="hd" class="ue-clear">
+        <a href="{% url 'index' %}"><div class="logo"></div></a>
+        <div class="inputArea">
+            <input type="text" class="searchInput" value="{{ key_words }}"/>
+            <input type="button" class="searchButton" onclick="add_search()"/>
+        </div>
+    </div>
+
+    <div id="bd" class="ue-clear">
+        <div id="main">
+            <div class="resultArea">
+
+                <div class="resultList">
+                    {% for hits in all_hits %}
+                    <div class="resultItem">
+                            <div class="itemHead">
+                                <a href="{{ hits.url }}"  target="_blank" class="title">{% autoescape off %}{{ hits.title }}{% endautoescape %}</a>
+                            </div>
+                            <div class="itemBody">{% autoescape off %}{{ hits.description }}{% endautoescape %}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div><!-- End of main -->
+    </div><!--End of bd-->
+</div>
+
+<div id="foot">Copyright &copy;search.cnblogs.cn 版权所有  </div>
 </body>
 </html>
